@@ -70,7 +70,8 @@ public class Auction implements ILeilao{
 		if(type.equals(BidType.Oferta)) tipoLeilao = 
 		this.check = check;
 		bids = new ArrayList<Bid>();
-	}
+	}	
+	
 	/*
 	 * if (horaInicio.compareTo(LocalDateTime.now()) < 0 || horaFinal.compareTo(LocalDateTime.now()) > 0){
 			
@@ -109,15 +110,8 @@ public class Auction implements ILeilao{
 	}
 
 	@Override
-	public String winner() throws ClosedAuctionExecption {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> getBids() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Bid> getBids() {
+		return Collections.unmodifiableList(bids);
 	}
 
 	@Override
@@ -127,8 +121,14 @@ public class Auction implements ILeilao{
 	}
 
 	@Override
-	public Bid winner(ArrayList<Bid> lances) {
-		// TODO Auto-generated method stub
+	public Bid winner() throws ClosedAuctionExecption{
+		if (bids.size() == 0) return null;
+		Bid menorLance = lances.get(0);
+		for(int i = 1; i<lances.size();i++){
+			if (lances.get(i).getValor().compareTo(menorLance.getValor()) < 0)
+				menorLance = lances.get(i);
+		}
+		return menorLance;
 		return null;
 	}
 	
