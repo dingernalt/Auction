@@ -21,7 +21,7 @@ public class Auction implements ILeilao{
 	private boolean closed;
 	
 	public static enum BidType {
-		Oferta, Demanda;
+		Supply, Demand;
 	}
 	
 	public static enum Openess {
@@ -67,7 +67,7 @@ public class Auction implements ILeilao{
 		this.seller = criador;
 		this.goods = bens;
 		tipoLeilao = LeilaoFactory.criaLeilao(type);
-		if(type.equals(BidType.Oferta)) tipoLeilao = 
+		if(type.equals(BidType.Supply)) tipoLeilao = 
 		this.check = check;
 		bids = new ArrayList<Bid>();
 	}	
@@ -123,6 +123,23 @@ public class Auction implements ILeilao{
 	@Override
 	public Bid winner() throws ClosedAuctionExecption{
 		if (bids.size() == 0) return null;
+		Bid aux = null;
+		switch(type) {
+			case Supply: 
+				aux = bids.get(0);
+				for(int i = 1; i < bids.size(); i++) {
+					
+				}
+				break;
+			case Demand: 
+				aux = bids.get(0);
+				for(int i = 1; i < bids.size(); i++) {
+					
+				}
+				break;
+			default:
+				break; 
+		}
 		Bid menorLance = lances.get(0);
 		for(int i = 1; i<lances.size();i++){
 			if (lances.get(i).getValor().compareTo(menorLance.getValor()) < 0)
