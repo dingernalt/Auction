@@ -125,28 +125,27 @@ public class Auction implements ILeilao{
 		if (bids.size() == 0) return null;
 		Bid aux = null;
 		switch(type) {
-			case Supply: 
-				aux = bids.get(0);
-				for(int i = 1; i < bids.size(); i++) {
-					
-				}
-				break;
+			
 			case Demand: 
 				aux = bids.get(0);
 				for(int i = 1; i < bids.size(); i++) {
-					
+					if(bids.get(i).value().compareTo(aux.value()) >  0) {
+						aux = bids.get(i);
+					}
+				}
+				break;				
+			case Supply: 
+				aux = bids.get(0);
+				for(int i = 1; i < bids.size(); i++) {
+					if(bids.get(i).value().compareTo(aux.value()) <  0) {
+						aux = bids.get(i);
+					}
 				}
 				break;
 			default:
 				break; 
 		}
-		Bid menorLance = lances.get(0);
-		for(int i = 1; i<lances.size();i++){
-			if (lances.get(i).getValor().compareTo(menorLance.getValor()) < 0)
-				menorLance = lances.get(i);
-		}
-		return menorLance;
-		return null;
+		return aux;
 	}
 	
 }
